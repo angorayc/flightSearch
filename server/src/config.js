@@ -1,5 +1,5 @@
 // obtain API key from your Skyscanner contact
-const APIKEY = process.env.APIKEY;
+const APIKEY = process.env.APIKEY || ss630745725358065467897349852985;
 
 if (!APIKEY) {
   console.error('APIKEY environment variable missing. ' +
@@ -9,5 +9,21 @@ if (!APIKEY) {
 
 module.exports = {
   apiKey: APIKEY,
-  skyscannerApi: 'http://partners.api.skyscanner.net/'
+  skyscannerApi: 'http://partners.api.skyscanner.net/',
+  paramWhiteList: [
+    'country',
+    'currency',
+    'locale',
+    'locationSchema',
+    'apikey',
+    'grouppricing',
+    'originplace',
+    'destinationplace',
+    'outbounddate',
+    'inbounddate',
+    'adults',
+    'children',
+    'infants',
+    'cabinclass'
+  ]
 };

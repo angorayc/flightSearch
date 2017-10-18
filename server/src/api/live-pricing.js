@@ -160,7 +160,7 @@ const sessionParams = (query) => {
   return querystring.stringify({
     apiKey: config.apiKey,
     adults: query.adults,
-    cabinclass: query.class,
+    cabinclass: query.cabinclass,
     country: 'UK',
     currency: 'GBP',
     destinationplace: query.toPlace,

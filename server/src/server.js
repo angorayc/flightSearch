@@ -4,6 +4,9 @@ require('es6-promise').polyfill();
 const express = require('express');
 const app = express();
 const api = require('./api/');
+const validateQuery = require('./middleware/validateQuery')
+const { paramWhiteList } = require('./config')
+const { sanitizeQuery } = require('express-validator/filter')
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -23,18 +26,18 @@ app.get('/', (req, res) => {
   Api params and location values are here:
   http://business.skyscanner.net/portal/en-GB/Documentation/FlightsLivePricingQuickStart
 */
-app.get('/api/search', (req, res) => {
-
-  api.livePricing.search({
-    // TODO client to provide params
-    // check in api docs what client should provide
-  })
-  .then((results) => {
-    // TODO - a better format for displaying results to the client
-    console.log('TODO: transform results for consumption by client');
-    res.json(results);
-  })
-  .catch(console.error);
+app.get('/api/search', validateQuery, (req, res) => {
+  // TODO client to provide params
+  // check in api docs what client should provide
+  console.log(req.query)
+  res.send('done')
+  // api.livePricing.search(paramWhiteList)
+  // .then((results) => {
+  //   // TODO - a better format for displaying results to the client
+  //   console.log('TODO: transform results for consumption by client');
+  //   res.json(results);
+  // })
+  // .catch(console.error);
 });
 
 app.listen(4000, () => {
