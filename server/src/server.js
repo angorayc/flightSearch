@@ -30,14 +30,14 @@ app.get('/api/search', validateQuery, (req, res) => {
   // TODO client to provide params
   // check in api docs what client should provide
   console.log(req.query)
-  res.send('done')
-  // api.livePricing.search(paramWhiteList)
-  // .then((results) => {
-  //   // TODO - a better format for displaying results to the client
-  //   console.log('TODO: transform results for consumption by client');
-  //   res.json(results);
-  // })
-  // .catch(console.error);
+  //res.send('done')
+  api.livePricing.search(req.query)
+  .then((results) => {
+    // TODO - a better format for displaying results to the client
+    console.log('TODO: transform results for consumption by client');
+    res.json(results);
+  })
+  .catch(console.error);
 });
 
 app.listen(4000, () => {

@@ -19,6 +19,7 @@ let cachedData = {};
 const livePricing = {
   api: {
     createSession: (params) => {
+      //console.log('url:', pricingUrl + `?apikey=${config.apiKey}`, sessionParams(params))
       return fetch(pricingUrl + `?apikey=${config.apiKey}`, {
         method: 'POST',
         body: sessionParams(params),
@@ -54,6 +55,7 @@ function createSession (params) {
     livePricing.api.createSession(params)
       .then((response) => {
         if (response.status !== 201) {
+          //console.log('response', response)
           console.error(response.status, 'something went wrong...')
           return response.json()
             .then(console.error);
@@ -158,17 +160,20 @@ function pollError (state, err) {
 
 const sessionParams = (query) => {
   return querystring.stringify({
+    country: query.country || 'UK',
+    currency: query.currency || 'GBP',
+    locale: query.locale || 'en-GB',
+    locationschema: query.locationschema || 'Sky',
     apiKey: config.apiKey,
+    grouppricing: query.grouppricing,
+    originplace: query.originplace,
+    destinationplace: query.destinationplace,
+    outbounddate: query.outbounddate,
+    inbounddate: query.inbounddate,
     adults: query.adults,
-    cabinclass: query.cabinclass,
-    country: 'UK',
-    currency: 'GBP',
-    destinationplace: query.toPlace,
-    inbounddate: query.toDate,
-    locale: 'en-GB',
-    locationschema: 'Sky',
-    originplace: query.fromPlace,
-    outbounddate: query.fromDate
+    children: query.children,
+    inphants: query.inphants, 
+    cabinclass: query.cabinclass
   });
 }
 
