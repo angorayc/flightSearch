@@ -32,8 +32,9 @@ app.get('/api/search', validateFlightSearchQuery, (req, res) => {
   // TODO client to provide params
   // check in api docs what client should provide
   let params = matchedData(req)
-
+  // console.log('params:', params)
   try {
+    // validationResult(req).throw();
     api.livePricing.search(params)
     .then((results) => {
       // TODO - a better format for displaying results to the client
