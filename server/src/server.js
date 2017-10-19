@@ -6,14 +6,24 @@ const app = express()
 const api = require('./api/')
 const validateFlightSearchQuery = require('./middleware/validateFlightSearchQuery')
 const { validationResult } = require('express-validator/check')
-const { matchedData, sanitize } = require('express-validator/filter');
+const { matchedData, sanitize } = require('express-validator/filter')
+const webpackDevServer = require('webpack-dev-server')
+const webpack = require('webpack')
+const webpackConfig = require('../config/webpack.config')
+const compiler = webpack(webpackConfig)
 
+//console.log('new config', webpackConfig)
+app.use(require("webpack-dev-middleware")(compiler, {
+    noInfo: true,
+    publicPath: webpackConfig.output.publicPath
+}))
 
+app.use(require("webpack-hot-middleware")(compiler))
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
+  next()
 })
 
 app.get('/', (req, res) => {
