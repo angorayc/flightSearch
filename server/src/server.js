@@ -6,7 +6,8 @@ const app = express()
 const api = require('./api/')
 const validateFlightSearchQuery = require('./middleware/validateFlightSearchQuery')
 const { validationResult } = require('express-validator/check')
-const { matchedData, sanitize } = require('express-validator/filter');
+const { matchedData } = require('express-validator/filter')
+const parseFlightSearchResult = require('./parser/flightSearchParser')
 
 
 
@@ -34,16 +35,15 @@ app.get('/api/search', validateFlightSearchQuery, (req, res) => {
   let params = matchedData(req)
   // console.log('params:', params)
   try {
-    // validationResult(req).throw();
     api.livePricing.search(params)
     .then((results) => {
       // TODO - a better format for displaying results to the client
-      console.log('TODO: transform results for consumption by client');
-      res.json(results);
+      //console.log('TODO: transform results for consumption by client')
+      let parsedResult = parseFlightSearchResult(results)
+      res.json(parsedResult)
     })
-    .catch(console.error);
+    .catch(console.error)
   } catch (err) {
-    // Oh noes. This user doesn't have enough skills for this...
     res.status(422).json({error: validationResult(req).mapped()})
   }
   
