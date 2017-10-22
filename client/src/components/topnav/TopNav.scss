@@ -10,8 +10,14 @@
   box-shadow: 0 0 10px 0 $bpk-color-gray-300;
 }
 
-.logo {
+.header__logo {
+  display: inline-block;
+}
+
+.bpk-logo {
   vertical-align: middle;
+  fill: $bpk-link-color;
+  height: $bpk-line-height-base;
 }
 
 .logoText {
