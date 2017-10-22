@@ -9,9 +9,12 @@ class App extends Component {
       <div className="App">
         <TopNav/>
         <FlightSearch />
-        // TODO header
-        // TODO placeholder controls
-        // TODO results component
+        {
+          /* TODO header
+          TODO placeholder controls
+          TODO results component
+          */
+        }
       </div>
     );
   }

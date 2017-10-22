@@ -4,8 +4,15 @@ https://github.com/Skyscanner/backpack/tree/master/packages/bpk-component-input
 */
 import BpkInput from 'bpk-component-input';
 import BpkLabel from 'bpk-component-label';
+import BpkButton from 'bpk-component-button';
+import { withButtonAlignment, withRtlSupport, withLargeButtonAlignment } from 'bpk-component-icon';
+import ArrowIcon from 'bpk-component-icon/sm/arrow-down';
+import ArrowRightIcon from 'bpk-component-icon/lg/long-arrow-right';
+
 import InputContainer from '../common/InputContainer';
 import { cssModules } from 'bpk-react-utils';
+// import { colorWhite } from 'bpk-tokens/tokens/base.es6';
+
 import STYLES from './forms.scss';
 
 const getClassName = cssModules(STYLES);
@@ -16,7 +23,8 @@ const dateClassName = getClassName('search__date');
 // const timeClassName = getClassName('search__time');
 // const destinationClassName = getClassName('search__hotels-destination');
 // const pickupClassName = getClassName('search__car-hire-pickup-location');
-
+const AlignedArrowIcon = withButtonAlignment(withRtlSupport(ArrowIcon));
+const AlignedArrowRightIcon = withLargeButtonAlignment(withRtlSupport(ArrowRightIcon));
 
 class FlightSearch extends Component {
   render() {
@@ -24,7 +32,7 @@ class FlightSearch extends Component {
       <div className="search">
         <form>
           <div className={formClassName}>
-            <BpkLabel htmlFor="input_origin">From</BpkLabel>
+            <BpkLabel htmlFor="input_origin" white={true}>From</BpkLabel>
             <InputContainer
               FormComponent={BpkInput}
               id="input_origin"
@@ -36,7 +44,7 @@ class FlightSearch extends Component {
             />
           </div>
           <div className={formClassName}>
-            <BpkLabel htmlFor="input_destination">To</BpkLabel>
+            <BpkLabel htmlFor="input_destination" white={true}>To</BpkLabel>
             <InputContainer
               FormComponent={BpkInput}
               id="input_destination"
@@ -47,31 +55,41 @@ class FlightSearch extends Component {
               docked={false}
             />
           </div>
-          <div>
-            <BpkLabel htmlFor="input_depart" className={dateClassName}>Depart</BpkLabel>
-            <BpkLabel htmlFor="input_return" className={dateClassName}>Return</BpkLabel>
-          </div>
           <div className={formClassName}>
+            <BpkLabel htmlFor="input_depart" className={dateClassName} white={true}>Depart</BpkLabel>
+            <BpkLabel htmlFor="input_return" className={dateClassName} white={true}>Return</BpkLabel>
             <InputContainer
               FormComponent={BpkInput}
               id="input_depart"
               name="input_depart"
-              value=""
+              value={new Date().toLocaleDateString()}
               className={dateClassName}
-              placeholder="mm/dd/yyyy"
               onChange={() => null}
               docked={true}
+              dockedFirst={true}
             />
             <InputContainer
               FormComponent={BpkInput}
               id="input_return"
               name="input_return"
-              value=""
+              value={new Date(new Date().getTime() + (24 * 60 * 60 * 1000)).toLocaleDateString()}
               className={dateClassName}
-              placeholder="mm/dd/yyyy"
               onChange={() => null}
               docked={true}
             />
+          </div>
+          <div className={formClassName}>
+            <BpkLabel htmlFor="input_destination" white={true}>Cabin Class & Travellers</BpkLabel>
+            <BpkButton link className="search__button--cabin-travellers">
+              <span>1 adult, Economy</span>
+              <AlignedArrowIcon />
+            </BpkButton>
+          </div>
+          <div>
+            <BpkButton className="search__button--submit" large>
+              <span>Search flights</span>
+              <AlignedArrowRightIcon fill="white" />
+            </BpkButton>
           </div>
         </form>
       </div>

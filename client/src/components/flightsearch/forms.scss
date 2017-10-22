@@ -2,6 +2,7 @@
 
 .search {
   padding: $bpk-spacing-sm $bpk-spacing-sm;
+  background-color: $bpk-color-blue-700;
 
   &__viewport-alert {
     display: none;
@@ -13,12 +14,6 @@
 
   &__form {
     margin-bottom: $bpk-spacing-sm;
-
-    &--desktop-only {
-      @include bpk-breakpoint-tablet {
-        display: none;
-      }
-    }
   }
 
   &__place {
@@ -55,5 +50,15 @@
     display: inline-block;
     width: 12%;
     vertical-align: bottom;
+  }
+
+  &__button--cabin-travellers {
+    @include bpk-input();
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__button--submit {
+    width: 100%;
   }
 }
