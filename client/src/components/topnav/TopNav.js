@@ -5,7 +5,9 @@ import Logo from './Logo'
 import BpkLargeMenuIcon from 'bpk-component-icon/lg/menu';
 import { withAlignment } from 'bpk-component-icon';
 import { colorBlue500, iconSizeLg, lineHeightBase } from 'bpk-tokens/tokens/base.es6';
-
+/*
+https://github.com/Skyscanner/backpack/tree/master/packages/bpk-component-icon
+*/
 
 const AlignedBpkLargeMenuIcon = withAlignment(BpkLargeMenuIcon, iconSizeLg, lineHeightBase);
 

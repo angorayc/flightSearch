@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import './App.scss';
 
 import TopNav from './components/topnav';
-
+import FlightSearch from './components/flightsearch'
 class App extends Component {
   render() {
     return (
       <div className="App">
         <TopNav/>
+        <FlightSearch />
         // TODO header
         // TODO placeholder controls
         // TODO results component
