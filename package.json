@@ -57,6 +57,7 @@
   "dependencies": {
     "bpk-mixins": "^11.0.0",
     "bpk-stylesheets": "^3.2.14",
+    "date-fns": "^1.29.0",
     "es6-promise": "^3.2.1",
     "express-validator": "^4.2.1",
     "install": "^0.10.1",

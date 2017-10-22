@@ -5,6 +5,8 @@ https://github.com/Skyscanner/backpack/tree/master/packages/bpk-component-input
 import BpkInput from 'bpk-component-input';
 import BpkLabel from 'bpk-component-label';
 import BpkButton from 'bpk-component-button';
+import BpkDatepicker from 'bpk-component-datepicker';
+import format from 'date-fns/format';
 import { withButtonAlignment, withRtlSupport, withLargeButtonAlignment } from 'bpk-component-icon';
 import ArrowIcon from 'bpk-component-icon/sm/arrow-down';
 import ArrowRightIcon from 'bpk-component-icon/lg/long-arrow-right';
@@ -25,6 +27,54 @@ const dateClassName = getClassName('search__date');
 // const pickupClassName = getClassName('search__car-hire-pickup-location');
 const AlignedArrowIcon = withButtonAlignment(withRtlSupport(ArrowIcon));
 const AlignedArrowRightIcon = withLargeButtonAlignment(withRtlSupport(ArrowRightIcon));
+
+const formatDateFull = date => format(date, 'dddd, Do MMMM YYYY');
+const formatMonth = date => format(date, 'MMMM YYYY');
+const formatDate = date => format(date, 'YYYY-MM-DD');
+const daysOfWeek = [
+  {
+    name: 'Sunday',
+    nameAbbr: 'Sun',
+    index: 0,
+    isWeekend: true,
+  },
+  {
+    name: 'Monday',
+    nameAbbr: 'Mon',
+    index: 1,
+    isWeekend: false,
+  },
+  {
+    name: 'Tuesday',
+    nameAbbr: 'Tue',
+    index: 2,
+    isWeekend: false,
+  },
+  {
+    name: 'Wednesday',
+    nameAbbr: 'Wed',
+    index: 3,
+    isWeekend: false,
+  },
+  {
+    name: 'Thursday',
+    nameAbbr: 'Thu',
+    index: 4,
+    isWeekend: false,
+  },
+  {
+    name: 'Friday',
+    nameAbbr: 'Fri',
+    index: 5,
+    isWeekend: false,
+  },
+  {
+    name: 'Saturday',
+    nameAbbr: 'Sat',
+    index: 6,
+    isWeekend: true,
+  }
+];
 
 class FlightSearch extends Component {
   render() {
@@ -59,22 +109,36 @@ class FlightSearch extends Component {
             <BpkLabel htmlFor="input_depart" className={dateClassName} white={true}>Depart</BpkLabel>
             <BpkLabel htmlFor="input_return" className={dateClassName} white={true}>Return</BpkLabel>
             <InputContainer
-              FormComponent={BpkInput}
+              FormComponent={BpkDatepicker}
               id="input_depart"
               name="input_depart"
-              value={new Date().toLocaleDateString()}
+              date={new Date()}
               className={dateClassName}
-              onChange={() => null}
-              docked={true}
+              daysOfWeek={daysOfWeek}
+              changeMonthLabel="Change month"
+              closeButtonText="Close"
+              title="Departure date"
+              getApplicationElement={() => document.getElementById('root')}
+              formatDate={formatDate}
+              formatMonth={formatMonth}
+              formatDateFull={formatDateFull}
               dockedFirst={true}
             />
             <InputContainer
-              FormComponent={BpkInput}
+              FormComponent={BpkDatepicker}
               id="input_return"
               name="input_return"
-              value={new Date(new Date().getTime() + (24 * 60 * 60 * 1000)).toLocaleDateString()}
+              date={new Date(new Date().getTime() + (24 * 60 * 60 * 1000))}
               className={dateClassName}
               onChange={() => null}
+              daysOfWeek={daysOfWeek}
+              changeMonthLabel="Change month"
+              closeButtonText="Close"
+              title="Departure date"
+              getApplicationElement={() => document.getElementById('root')}
+              formatDate={formatDate}
+              formatMonth={formatMonth}
+              formatDateFull={formatDateFull}
               docked={true}
             />
           </div>

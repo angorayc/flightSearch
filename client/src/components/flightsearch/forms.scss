@@ -4,6 +4,7 @@
   padding: $bpk-spacing-sm $bpk-spacing-sm;
   background-color: $bpk-color-blue-700;
 
+  /*
   &__viewport-alert {
     display: none;
 
@@ -11,7 +12,7 @@
       display: block;
     }
   }
-
+  */
   &__form {
     margin-bottom: $bpk-spacing-sm;
   }
@@ -22,10 +23,19 @@
     vertical-align: bottom;
   }
 
-  &__date {
+  &__date, .bpk-datepicker__input {
     display: inline-block;
     width: 50%;
     vertical-align: bottom;
+  }
+  .bpk-datepicker__input {
+    &:first-of-type {
+      border-radius: $bpk-border-radius-xs 0 0 $bpk-border-radius-xs;
+    }
+    &:last-of-type {
+      border-radius: 0 $bpk-border-radius-xs $bpk-border-radius-xs 0;
+    };
+    
   }
 
   &__hotels-destination {
@@ -54,6 +64,10 @@
 
   &__button--cabin-travellers {
     @include bpk-input();
+    &:active {
+      background-color: $bpk-color-white;
+      text-decoration: none;
+    }
     display: flex;
     justify-content: space-between;
   }
