@@ -2,6 +2,8 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import BpkCheckbox from 'bpk-component-checkbox';
 import BpkDatepicker from 'bpk-component-datepicker';
+import BpkNudger from 'bpk-component-nudger';
+
 
 class InputContainer extends Component {
   constructor(props) {
@@ -26,7 +28,13 @@ class InputContainer extends Component {
         return {
           valueProp: 'date',
           changeProp: 'onDateSelect',
-          callbackForChange: date => console.log('date', date)//this.setState({ value: date })
+          callbackForChange: date => this.setState({ value: date })
+        }
+      case BpkNudger:
+        return {
+          valueProp: 'value',
+          changeProp: 'onChange',
+          callbackForChange: value => this.setState({ value: value })
         }
       default:
         return {
@@ -40,19 +48,6 @@ class InputContainer extends Component {
   render() {
     const { FormComponent, ...rest } = this.props;
 
-    // let overrideProps = {};
-
-    // if (FormComponent === BpkCheckbox) {
-    //   overrideProps = {
-    //     checked: this.state.value,
-    //     onChange: e => this.setState({ value: e.target.checked }),
-    //   };
-    // } else {
-    //   overrideProps = {
-    //     value: this.state.value,
-    //     onChange: e => this.setState({ value: e.target.value }),
-    //   };
-    // }
     let { valueProp, callbackForChange, changeProp } = this._getComponent(FormComponent);
     let overrideProps = {
       [valueProp]: this.state.value,

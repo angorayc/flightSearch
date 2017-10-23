@@ -2,25 +2,26 @@ import React, { Component } from 'react';
 /*
 https://github.com/Skyscanner/backpack/tree/master/packages/bpk-component-input
 */
-import BpkInput from 'bpk-component-input';
 import BpkLabel from 'bpk-component-label';
 import BpkButton from 'bpk-component-button';
-import BpkDatepicker from 'bpk-component-datepicker';
-import format from 'date-fns/format';
+import BpkSelect from 'bpk-component-select';
+import BpkNudger from 'bpk-component-nudger';
+//import format from 'date-fns/format';
 import { withButtonAlignment, withRtlSupport, withLargeButtonAlignment } from 'bpk-component-icon';
 import ArrowIcon from 'bpk-component-icon/sm/arrow-down';
 import ArrowRightIcon from 'bpk-component-icon/lg/long-arrow-right';
-
+import BpkModal from 'bpk-component-modal';
+import FormConfigs from './FormConfigs'
 import InputContainer from '../common/InputContainer';
 import { cssModules } from 'bpk-react-utils';
 // import { colorWhite } from 'bpk-tokens/tokens/base.es6';
 
-import STYLES from './forms.scss';
+import STYLES from './Form.scss';
 
 const getClassName = cssModules(STYLES);
 const formClassName = getClassName('search__form');
 // const placeClassName = getClassName('search__place');
-const dateClassName = getClassName('search__date');
+// const dateClassName = getClassName('search__date');
 // const numberClassName = getClassName('search__number');
 // const timeClassName = getClassName('search__time');
 // const destinationClassName = getClassName('search__hotels-destination');
@@ -28,130 +29,135 @@ const dateClassName = getClassName('search__date');
 const AlignedArrowIcon = withButtonAlignment(withRtlSupport(ArrowIcon));
 const AlignedArrowRightIcon = withLargeButtonAlignment(withRtlSupport(ArrowRightIcon));
 
-const formatDateFull = date => format(date, 'dddd, Do MMMM YYYY');
-const formatMonth = date => format(date, 'MMMM YYYY');
-const formatDate = date => format(date, 'YYYY-MM-DD');
-const daysOfWeek = [
-  {
-    name: 'Sunday',
-    nameAbbr: 'Sun',
-    index: 0,
-    isWeekend: true,
-  },
-  {
-    name: 'Monday',
-    nameAbbr: 'Mon',
-    index: 1,
-    isWeekend: false,
-  },
-  {
-    name: 'Tuesday',
-    nameAbbr: 'Tue',
-    index: 2,
-    isWeekend: false,
-  },
-  {
-    name: 'Wednesday',
-    nameAbbr: 'Wed',
-    index: 3,
-    isWeekend: false,
-  },
-  {
-    name: 'Thursday',
-    nameAbbr: 'Thu',
-    index: 4,
-    isWeekend: false,
-  },
-  {
-    name: 'Friday',
-    nameAbbr: 'Fri',
-    index: 5,
-    isWeekend: false,
-  },
-  {
-    name: 'Saturday',
-    nameAbbr: 'Sat',
-    index: 6,
-    isWeekend: true,
-  }
-];
+// const formatDateFull = date => format(date, 'dddd, Do MMMM YYYY');
+// const formatMonth = date => format(date, 'MMMM YYYY');
+// const formatDate = date => format(date, 'YYYY-MM-DD');
 
 class FlightSearch extends Component {
+
+  constructor() {
+    super();
+
+    this._onOpen = this._onOpen.bind(this);
+    this._onClose = this._onClose.bind(this);
+    this._handleAdultChange = this._handleAdultChange.bind(this);
+
+    this.state = {
+      isOpen: false,
+      form: {
+        adult: 1,
+        children: 0
+      }
+    };
+  }
+
+  _onOpen() {
+    this.setState({
+      isOpen: true,
+    });
+  }
+
+  _onClose() {
+    this.setState({
+      isOpen: false,
+    });
+  }
+
+  _handleAdultChange(value) {
+    this.setState({ form: {
+      adult: value
+    } });
+  }
+
+  _handleChidrenChange(value) {
+    this.setState({ form: {
+      children: value
+    } });
+  }
+
   render() {
     return (
       <div className="search">
         <form>
+
+          {
+            FormConfigs.map((config, i) => (
+              <div className={formClassName} key={`search-form-${i}`}>
+                { (config.labels || []).map((label, j) => <BpkLabel key={`search-label-${i}${j}`} {...label}/>) }
+                { (config.inputs || []).map((input, j) => <InputContainer key={`search-input-${i}${j}`} {...input}/>) }
+              </div>
+            ))
+          }
+
           <div className={formClassName}>
-            <BpkLabel htmlFor="input_origin" white={true}>From</BpkLabel>
-            <InputContainer
-              FormComponent={BpkInput}
-              id="input_origin"
-              name="input_origin"
-              value="Edinburgh"
-              placeholder="Country, city or airport"
-              onChange={() => null}
-              docked={false}
-            />
-          </div>
-          <div className={formClassName}>
-            <BpkLabel htmlFor="input_destination" white={true}>To</BpkLabel>
-            <InputContainer
-              FormComponent={BpkInput}
-              id="input_destination"
-              name="input_destination"
-              value=""
-              placeholder="Country, city or airport"
-              onChange={() => null}
-              docked={false}
-            />
-          </div>
-          <div className={formClassName}>
-            <BpkLabel htmlFor="input_depart" className={dateClassName} white={true}>Depart</BpkLabel>
-            <BpkLabel htmlFor="input_return" className={dateClassName} white={true}>Return</BpkLabel>
-            <InputContainer
-              FormComponent={BpkDatepicker}
-              id="input_depart"
-              name="input_depart"
-              date={new Date()}
-              className={dateClassName}
-              daysOfWeek={daysOfWeek}
-              changeMonthLabel="Change month"
-              closeButtonText="Close"
-              title="Departure date"
-              getApplicationElement={() => document.getElementById('root')}
-              formatDate={formatDate}
-              formatMonth={formatMonth}
-              formatDateFull={formatDateFull}
-              dockedFirst={true}
-            />
-            <InputContainer
-              FormComponent={BpkDatepicker}
-              id="input_return"
-              name="input_return"
-              date={new Date(new Date().getTime() + (24 * 60 * 60 * 1000))}
-              className={dateClassName}
-              onChange={() => null}
-              daysOfWeek={daysOfWeek}
-              changeMonthLabel="Change month"
-              closeButtonText="Close"
-              title="Departure date"
-              getApplicationElement={() => document.getElementById('root')}
-              formatDate={formatDate}
-              formatMonth={formatMonth}
-              formatDateFull={formatDateFull}
-              docked={true}
-            />
-          </div>
-          <div className={formClassName}>
-            <BpkLabel htmlFor="input_destination" white={true}>Cabin Class & Travellers</BpkLabel>
-            <BpkButton link className="search__button--cabin-travellers">
+            <BpkLabel htmlFor="input_class-travellers" white={true}>Cabin Class & Travellers</BpkLabel>
+            <BpkButton link className="search__button--cabin-travellers" onClick={this._onOpen}>
               <span>1 adult, Economy</span>
               <AlignedArrowIcon />
             </BpkButton>
+            <BpkModal
+              id="modal"
+              className="input_class-travellers"
+              getApplicationElement={() =>
+                document.getElementById('root')
+              }
+              isOpen={this.state.isOpen}
+              onClose={this._onClose}
+              title="Cabin Class & Travellers"
+              closeLabel="Close modal"
+              closeText="Done"
+            >
+              <div className={formClassName}>
+                <BpkLabel htmlFor="cabin">Cabin Class</BpkLabel>
+                <InputContainer
+                  FormComponent={BpkSelect}
+                  id="cabin"
+                  name="input_cabin"
+                  value="Economy"
+                  onChange={() => console.log('select changed')}
+                  children={
+                    [
+                      {option: 'Economy', value: 'Economy'},
+                      {option: 'Premium Economy', value: 'PremiumEconomy'},
+                      {option: 'Business class', value: 'Business'},
+                      {option: 'First class', value: 'First'}
+                    ].map((option, i) => <option value={option.value}>{option.option}</option>)
+                  }
+                />
+              </div>
+              <div className={formClassName}>
+                <BpkLabel htmlFor="adult">Adult</BpkLabel>
+                <InputContainer
+                  FormComponent={BpkNudger}
+                  id="adult"
+                  name="adult"
+                  min={1}
+                  max={10}
+                  value={this.state.form.adult}
+                  onChange={this._handleAdultChange}
+                  decreaseButtonLabel="Decrease"
+                  increaseButtonLabel="Increase"
+                />
+              </div>
+              <div className={formClassName}>
+                <BpkLabel htmlFor="children">Children</BpkLabel>
+                <InputContainer
+                  FormComponent={BpkNudger}
+                  id="children"
+                  name="children"
+                  min={1}
+                  max={10}
+                  value={this.state.form.children}
+                  onChange={this._handleChildrenChange}
+                  decreaseButtonLabel="Decrease"
+                  increaseButtonLabel="Increase"
+                />
+              </div>
+            </BpkModal>
           </div>
           <div>
             <BpkButton className="search__button--submit" large>
-              <span>Search flights</span>
+              <span>Search flights </span>
               <AlignedArrowRightIcon fill="white" />
             </BpkButton>
           </div>
@@ -160,5 +166,6 @@ class FlightSearch extends Component {
     );
   }
 }
+
 
 export default FlightSearch;
