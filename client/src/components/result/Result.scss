@@ -1,0 +1,70 @@
+@import "~bpk-mixins";
+
+.result {
+  background-color: $bpk-color-gray-50;
+  padding: $bpk-spacing-md $bpk-spacing-sm;
+  &__bpk-card {
+    margin-bottom: $bpk-spacing-md;
+  }
+}
+
+.tools {
+  padding: $bpk-spacing-md $bpk-spacing-sm;
+  font-size: $bpk-h-3-font-size;
+  display: flex;
+  justify-content: space-between;
+
+  &__left-btn {
+    padding: 0 $bpk-button-padding-x;
+    line-height: $bpk-h-3-line-height;
+    vertical-align: top;
+    &:first-child {
+      padding-left: 0;
+    }
+  }
+}
+
+.itinerary {
+  display: flex;
+  justify-content: space-between;
+  &__time {
+    line-height: 3rem;
+  }
+
+  &__ez {
+    background-image: url('https://logos.skyscnr.com/images/airlines/favicon/EZ.png');
+    background-size: $bpk-icon-size-lg $bpk-icon-size-lg;
+    background-position: 0 0;
+    @include bpk-border-radius-xs();
+  }
+
+  &__ez, &__bpk-arrow-icon {
+    display: inline-block;
+    width: $bpk-icon-size-lg;
+    height: $bpk-icon-size-lg;
+    vertical-align: middle;
+  }
+
+  &__from, &__to {
+    display: inline-block;
+    padding: 0 $bpk-button-padding-x;
+    width: $bpk-line-height-xl;
+    box-sizing: content-box;
+  }
+
+  &__duration {
+
+  }
+
+  &__code {
+    color: $bpk-color-gray-300;
+  }
+
+  &__mapped-time {
+    display: block;
+  }
+
+  &__direct {
+    color: $bpk-color-green-500;
+  }
+}

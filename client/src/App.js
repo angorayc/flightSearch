@@ -2,13 +2,16 @@ import React, { Component } from 'react';
 import './App.scss';
 
 import TopNav from './components/topnav';
-import FlightSearch from './components/flightsearch'
+import Placeholder from './components/placeholder';
+import Result from './components/result';
+
 class App extends Component {
   render() {
     return (
       <div className="App">
         <TopNav/>
-        <FlightSearch />
+        <Placeholder />
+        <Result />
         {
           /* TODO header
           TODO placeholder controls
