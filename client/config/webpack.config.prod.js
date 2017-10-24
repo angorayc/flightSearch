@@ -102,7 +102,7 @@ module.exports = {
   eslint: {
     // TODO: consider separate config for production,
     // e.g. to enable no-console and no-debugger only in prod.
-    configFile: path.join(__dirname, 'eslint.js'),
+    configFile: path.join(__dirname, 'eslint.prod.js'),
     useEslintrc: false
   },
   postcss: function() {
