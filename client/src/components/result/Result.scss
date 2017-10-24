@@ -6,6 +6,20 @@
   &__bpk-card {
     margin-bottom: $bpk-spacing-md;
   }
+  &__price-info {
+    display: flex;
+    justify-content: space-between;
+  }
+  &__price {
+    font-size: $bpk-font-size-lg;
+    display: block;
+  }
+
+  &__agent {
+    color: $bpk-color-gray-100;
+  }
+
+  
 }
 
 .tools {
@@ -27,6 +41,7 @@
 .itinerary {
   display: flex;
   justify-content: space-between;
+  margin-bottom: $bpk-spacing-sm;
   &__time {
     line-height: 3rem;
   }
@@ -53,14 +68,14 @@
   }
 
   &__duration {
-
+    font-size: $bpk-font-size-sm;
   }
 
   &__code {
     color: $bpk-color-gray-300;
   }
 
-  &__mapped-time {
+  &__mapped-time, &__price {
     display: block;
   }
 

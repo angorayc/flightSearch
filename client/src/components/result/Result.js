@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import BpkButton from 'bpk-component-button'
 import BpkAlertIcon from 'bpk-component-icon/sm/price-alerts';
-import BpkCard from 'bpk-component-card'
-import Itinerary from './Itinerary'
+import BpkCard from 'bpk-component-card';
+import Itinerary from './Itinerary';
+import Price from './Price';
 import { withAlignment, withRtlSupport, withButtonAlignment } from 'bpk-component-icon';
 import { colorBlue500, iconSizeSm, lineHeightLg } from 'bpk-tokens/tokens/base.es6';
 import './Result.scss';
@@ -50,10 +51,14 @@ class Result extends Component {
         </div>
         <div className="result">
           {
-            Itineraries.map((itinerary, i) => (
+            Itineraries.map((itinerary = {}, i) => (
               <BpkCard key={`card-${i}`} className="result__bpk-card">
                 <Itinerary data={itinerary} type="Outbound"/>
                 <Itinerary data={itinerary} type="Inbound"/>
+                <div className="result__price-info">
+                  <Price data={itinerary.PricingOptions || []} />
+                  <span><BpkButton>Select</BpkButton></span>
+                </div>
               </BpkCard>
             ))
           }
