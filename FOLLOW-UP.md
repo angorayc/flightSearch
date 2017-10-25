@@ -6,6 +6,10 @@
   - get data from nested object
 - bpk-component-*:
   _ layout creation
+- moment:
+  - to manipulate date object
+- qs:
+  - convert an object to query string
   
 ### Q) What is the command to start the server?
 
@@ -19,7 +23,7 @@ npm run server
 
 ### Q) How long, in hours, did you spend on the test?
 
-- about 15 hours on client & server side implementation
+- about 20 hours on client & server side implementation
 - I didn't find there is design mockup provided so spent extra few hours on creating form components: flightsearch / common
 
 
