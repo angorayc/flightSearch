@@ -8,10 +8,10 @@ import './Placeholder.scss';
 const AlignedBpkLargeArrowIcon = withAlignment(BpkLargeArrowIcon, iconSizeLg, lineHeightXxl);
 
 
-const Placeholder = () => (
+const Placeholder = ({destinationplace, originplace, travellers, cabinclass}) => (
   <div className="placeholder">
-    <BpkText tagName="h1" textStyle="xxl">EDI<AlignedBpkLargeArrowIcon fill="white"/>LON</BpkText>
-    <BpkText tagName="h3" textStyle="lg">2 travellers, economy</BpkText>
+    <BpkText tagName="h1" textStyle="xxl">{ originplace }<AlignedBpkLargeArrowIcon fill="white"/>{ destinationplace }</BpkText>
+    <BpkText tagName="h3" textStyle="lg">{`${travellers} travellers, ${cabinclass}`}</BpkText>
   </div>
 )
 

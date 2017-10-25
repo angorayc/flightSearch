@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import BpkButton from 'bpk-component-button'
 import BpkAlertIcon from 'bpk-component-icon/sm/price-alerts';
@@ -13,30 +14,8 @@ const AlignedBpkButton = withAlignment(BpkButton, iconSizeSm, lineHeightLg);
 
 class Result extends Component {
 
-  constructor(props) {
-    super(props)
-    this.state = {
-      Itineraries: []
-    }
-  }
-
-  componentDidMount() {
-    fetch('http://localhost:4000/api/search?country=UK&currency=GBP&locale=en-GB&locationSchema=iata&apikey=ss630745725358065467897349852985&grouppricing=on&originplace=EDI&destinationplace=LHR&outbounddate=2017-10-30&inbounddate=2017-11-06&adults=1&children=0&infants=0&cabinclass=Economy')
-      .then((response) => {
-        return response.json();
-      })
-      .then((results) => {
-        //console.log('TODO: something with these results:');
-        //console.log(results);
-        this.setState({
-          Itineraries: results.Itineraries || []
-        })
-      })
-      .catch(console.error);
-  }
-
   render() {
-    let { Itineraries } = this.state
+    let { Itineraries } = this.props
     return (
       <div>
         <div className="tools">
@@ -61,6 +40,10 @@ class Result extends Component {
       </div>
     )
   }
+}
+
+Result.propTypes = {
+  Itineraries: PropTypes.array
 }
 
 
